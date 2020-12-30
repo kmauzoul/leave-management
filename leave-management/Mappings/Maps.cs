@@ -14,7 +14,6 @@ namespace leave_management.Mappings
         {
             //Create maps - ReverseMap makes the mapping bidirectional
             CreateMap<LeaveType, LeaveTypeViewModel>().ReverseMap();
-            CreateMap<LeaveType, CreateLeaveTypeViewModel>().ReverseMap();
             CreateMap<LeaveHistory, LeaveHistoryViewModel>().ReverseMap();
             CreateMap<LeaveAllocation, LeaveAllocationViewModel>().ReverseMap();
             CreateMap<Employee, EmployeeViewModel>().ReverseMap();

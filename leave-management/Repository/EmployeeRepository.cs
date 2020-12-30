@@ -19,6 +19,11 @@ namespace leave_management.Repository
             throw new NotImplementedException();
         }
 
+        public bool Exists(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         public ICollection<Employee> FindAll()
         {
             throw new NotImplementedException();

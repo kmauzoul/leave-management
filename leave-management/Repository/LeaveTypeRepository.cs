@@ -28,6 +28,11 @@ namespace leave_management.Repository
            
         }
 
+        public bool Exists(int id)
+        {
+            return _db.LeaveTypes.Any(u => u.Id == id);
+        }
+
         public ICollection<LeaveType> FindAll()
         {
             return _db.LeaveTypes.ToList();

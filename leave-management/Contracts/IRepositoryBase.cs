@@ -14,6 +14,7 @@ namespace leave_management.Contracts
         //Get class by it's Id
         T FindById(int id);
 
+        bool Exists(int id);
        
         bool Create(T entity);
 
