@@ -2,6 +2,7 @@
 using leave_management.Contracts;
 using leave_management.Data;
 using leave_management.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -11,6 +12,8 @@ using System.Threading.Tasks;
 
 namespace leave_management.Controllers
 {
+    //Set this over the class so you must be Authorized and you must be Administrator role to see it
+    [Authorize(Roles = "Administrator")]
     public class LeaveTypesController : Controller
     {
         private readonly ILeaveTypeRepository _repo;
@@ -22,6 +25,7 @@ namespace leave_management.Controllers
             _mapper = mapper;
         }
 
+        
         // GET: LeaveTypesController
         public ActionResult Index()
         {
