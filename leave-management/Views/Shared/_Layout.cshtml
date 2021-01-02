@@ -1,6 +1,7 @@
 ﻿@using Microsoft.AspNetCore.Identity
-@inject SignInManager<IdentityUser> SignInManager
-@inject UserManager<IdentityUser> UserManager
+@using leave_management.Data;
+@inject SignInManager<Employee> SignInManager
+@inject UserManager<Employee> UserManager
 
 <!DOCTYPE html>
 <html lang="en">
@@ -15,7 +16,7 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-primary border-bottom box-shadow mb-3">
             <div class="container">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Core Leave Management</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -44,9 +45,9 @@
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                         <a class="dropdown-item text-dark" asp-controller="LeaveTypes" asp-action="Index">Leave Types</a>
-                                        <a class="dropdown-item text-dark" href="#">Leave Allocations</a>
+                                        <a class="dropdown-item text-dark" asp-controller="LeaveAllocation" asp-action="Index">Leave Allocations</a>
                                         <a class="dropdown-item text-dark" href="#">Leave Applications</a>
-                                        <a class="dropdown-item text-dark" href="#">Employees</a>
+                                        <a class="dropdown-item text-dark" asp-controller="LeaveAllocation" asp-action="ListEmployees">Employees</a>
                                     </div>
                                 </li>
                             }

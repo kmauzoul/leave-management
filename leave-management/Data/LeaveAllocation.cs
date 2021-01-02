@@ -18,7 +18,6 @@ namespace leave_management.Data
 
         [ForeignKey("EmployeeId")] //Foreign Key reference to EmployeeId (primary key on AspNetUsers table)
         public Employee Employee { get; set; }
-        
         //This is string because in AspNetUsers class, the Id is a string
         public string EmployeeId { get; set; }
 
@@ -26,5 +25,7 @@ namespace leave_management.Data
         public LeaveType LeaveType { get; set; }
 
         public int LeaveTypeId { get; set; }
+
+        public int Period { get; set; }
     }
 }
