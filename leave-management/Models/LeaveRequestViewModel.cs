@@ -44,6 +44,12 @@ namespace leave_management.Models
         public EmployeeViewModel ApprovedBy { get; set; }
 
         public string ApprovedById { get; set; }
+
+        [DataType(DataType.MultilineText)]
+        [Display(Name = "Request Comment")]
+        public string RequesterComment { get; set; }
+
+        public bool Cancelled { get; set; }
     }
 
     public class AdminLeaveRequestViewModel
@@ -62,6 +68,12 @@ namespace leave_management.Models
         public List<LeaveRequestViewModel> LeaveRequests { get; set; }
     }
 
+    public class EmployeeLeaveRequestViewModel
+    {
+        public List<LeaveRequestViewModel> LeaveRequests { get; set; }
+        public List<LeaveAllocationViewModel> LeaveAllocations { get; set; }
+    }
+
     public class CreateLeaveRequestViewModel
     {
         [Display(Name = "Start Date")]
@@ -77,5 +89,10 @@ namespace leave_management.Models
         public IEnumerable<SelectListItem> LeaveTypes { get; set; }
         [Display(Name = "Leave Type")]
         public int LeaveTypeId { get; set; }
+
+        [DataType(DataType.MultilineText)]
+        [Display(Name = "Request Comment")]
+        [Required]
+        public string RequesterComment { get; set; }
     }
 }

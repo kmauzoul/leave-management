@@ -42,6 +42,15 @@ namespace leave_management.Repository
                 .ToList();
         }
 
+        public ICollection<LeaveRequest> FindByEmployee(string employeeId)
+        {
+            return _db.LeaveRequests
+                .Where(u => u.RequestingEmployeeId == employeeId)
+                .Include(u => u.ApprovedBy)
+                .Include(u => u.LeaveType)
+                .ToList();
+        }
+
         public LeaveRequest FindById(int id)
         {
             return _db.LeaveRequests

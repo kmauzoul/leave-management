@@ -49,6 +49,22 @@ namespace leave_management.Controllers
             return View(model);
         }
 
+        [Authorize(Roles = "Employee")]
+        public ActionResult MyLeaves()
+        {
+            var employeeId = _userManager.GetUserId(User);
+            var leaveRequests = _leaveRequestRepo.FindByEmployee(employeeId);
+            var leaveAllocations = _leaveAllocationRepo.GetLeaveAllocationsByEmployee(employeeId);
+
+            var model = new EmployeeLeaveRequestViewModel()
+            {
+                LeaveRequests = _mapper.Map<List<LeaveRequestViewModel>>(leaveRequests),
+                LeaveAllocations = _mapper.Map<List<LeaveAllocationViewModel>>(leaveAllocations)
+            };
+
+            return View(model);
+        }
+
         // GET: LeaveRequestController/Details/5
         public ActionResult Details(int id)
         {
@@ -93,7 +109,6 @@ namespace leave_management.Controllers
                 model.LeaveTypes = leaveTypeItems;
                 if (!ModelState.IsValid)
                 {
-
                     return View(model);
                 }
 
@@ -127,6 +142,8 @@ namespace leave_management.Controllers
                     DateRequested = DateTime.Now,
                     LeaveTypeId = model.LeaveTypeId,
                     DateActioned = DateTime.MinValue,
+                    RequesterComment = model.RequesterComment,
+                    Cancelled = false
                 };
 
                 var leaveRequest = _mapper.Map<LeaveRequest>(leaveRequestModel);
@@ -136,9 +153,7 @@ namespace leave_management.Controllers
                     return View(model);
                 }
 
-                
-
-                return RedirectToAction(nameof(Index), "Home");
+                return RedirectToAction(nameof(MyLeaves));
             }
             catch (Exception ex)
             {
@@ -217,6 +232,28 @@ namespace leave_management.Controllers
             {
                 return View();
             }
+        }
+
+        public ActionResult CancelLeaveRequest(int id)
+        {
+            var leaveRequest = _leaveRequestRepo.FindById(id);
+            if (leaveRequest == null)
+            {
+                return NotFound();
+            }
+            leaveRequest.Cancelled = true;
+            if (leaveRequest.Approved.HasValue && leaveRequest.Approved.Value)
+            {
+                var leaveAllocation = _leaveAllocationRepo.GetLeaveAllocationsByEmployeeAndType(leaveRequest.RequestingEmployeeId, leaveRequest.LeaveTypeId);
+                leaveAllocation.NumberOfDays += (int)(leaveRequest.EndDate.Date - leaveRequest.StartDate.Date).TotalDays;
+                _leaveAllocationRepo.Update(leaveAllocation); //put the days back
+            }
+            if (!_leaveRequestRepo.Update(leaveRequest))
+            {
+                return BadRequest();
+            }
+
+            return RedirectToAction(nameof(MyLeaves));
         }
 
         // GET: LeaveRequestController/Delete/5
