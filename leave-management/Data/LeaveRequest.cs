@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace leave_management.Data
 {
-    public class LeaveHistory
+    public class LeaveRequest
     {
         [Key]
         public int Id { get; set; }
 
-        [ForeignKey("RequestedEmployeeId")]
+        [ForeignKey("RequestingEmployeeId")]
         public Employee RequestingEmployee { get; set; }
 
         public string RequestingEmployeeId { get; set; }

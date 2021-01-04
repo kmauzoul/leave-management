@@ -131,6 +131,8 @@ namespace leave_management.Controllers
                 }
 
                 var allocation = _mapper.Map<LeaveAllocation>(model);
+                //an alternate would be to load the LeaveAllocation by the ID that's in the model, and changing just the "NumberOfDays" property and updating
+                //less code than having a bunch of "hidden" fields in the razor page
                 if (!_leaveAllocationRepo.Update(allocation))
                 {
                     ModelState.AddModelError("", "Error updating Leave Allocation");

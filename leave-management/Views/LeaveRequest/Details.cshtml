@@ -1,0 +1,44 @@
+﻿@model leave_management.Models.LeaveRequestViewModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Reviewing @Model.RequestingEmployee.LastName, @Model.RequestingEmployee.FirstName</h1>
+
+<h4>@Html.DisplayNameFor(model => model.DateRequested) -  @Html.DisplayFor(model => model.DateRequested)</h4>
+<hr />
+<h4>Type - @Html.DisplayFor(model => model.LeaveType.Name)</h4>
+<div>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.StartDate)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.StartDate)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.EndDate)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.EndDate)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a class="btn btn-success" asp-action="ApproveRequest" asp-route-id="@Model.Id">
+        <i class="fa fa-check" aria-hidden="true"></i> Approve
+    </a>
+    <a class="btn btn-danger" asp-action="RejectRequest" asp-route-id="@Model.Id">
+        <i class="fa fa-remove" aria-hidden="true"></i> Reject
+    </a>
+</div>
+<br/>
+<div>
+    <a asp-action="Index" class="btn btn-outline-primary">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i> Back to List
+    </a>
+</div>
+
+
