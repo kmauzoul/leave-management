@@ -68,7 +68,7 @@
         {
             <li class="list-group-item">
                 <h6>
-                    @item.LeaveType.Name <span class="badge bg-primary text-white">@item.NumberOfDays</span> |
+                    @item.LeaveType.Name <span class="badge bg-dark text-white">@item.NumberOfDays</span> |
                     <a class="btn btn-outline-warning" asp-action="Edit" asp-route-id="@item.Id">
                         <i class="fa fa-pencil"></i> Edit
                     </a>
@@ -80,7 +80,7 @@
 
 
 <div>
-    <a asp-action="Index" class="btn btn-outline-primary">
+    <a asp-action="ListEmployees" class="btn btn-outline-dark">
         <i class="fa fa-chevron-left" aria-hidden="true"></i> Back to List
     </a>
 </div>
