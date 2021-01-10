@@ -16,60 +16,60 @@ namespace leave_management.Repository
         {
             _db = db;
         }
-        public bool Create(LeaveRequest entity)
+        public async Task<bool> Create(LeaveRequest entity)
         {
-            _db.LeaveRequests.Add(entity);
-            return Save();
+            await _db.LeaveRequests.AddAsync(entity);
+            return await Save();
         }
 
-        public bool Delete(LeaveRequest entity)
+        public async Task<bool> Delete(LeaveRequest entity)
         {
             _db.LeaveRequests.Remove(entity);
-            return Save();
+            return await Save();
         }
 
-        public bool Exists(int id)
+        public async Task<bool> Exists(int id)
         {
-            return _db.LeaveRequests.Any(u => u.Id == id);
+            return await _db.LeaveRequests.AnyAsync(u => u.Id == id);
         }
 
-        public ICollection<LeaveRequest> FindAll()
+        public async Task<ICollection<LeaveRequest>> FindAll()
         {
-            return _db.LeaveRequests
+            return await _db.LeaveRequests
                 .Include(u => u.RequestingEmployee)
                 .Include(u => u.ApprovedBy)
                 .Include(u => u.LeaveType)
-                .ToList();
+                .ToListAsync();
         }
 
-        public ICollection<LeaveRequest> FindByEmployee(string employeeId)
+        public async Task<ICollection<LeaveRequest>> FindByEmployee(string employeeId)
         {
-            return _db.LeaveRequests
+            return await _db.LeaveRequests
                 .Where(u => u.RequestingEmployeeId == employeeId)
                 .Include(u => u.ApprovedBy)
                 .Include(u => u.LeaveType)
-                .ToList();
+                .ToListAsync();
         }
 
-        public LeaveRequest FindById(int id)
+        public async Task<LeaveRequest> FindById(int id)
         {
-            return _db.LeaveRequests
+            return await _db.LeaveRequests
                 .Include(u => u.RequestingEmployee)
                 .Include(u => u.ApprovedBy)
                 .Include(u => u.LeaveType)
                 .Where(u => u.Id == id)
-                .FirstOrDefault();
+                .FirstOrDefaultAsync();
         }
 
-        public bool Save()
+        public async Task<bool> Save()
         {
-            return _db.SaveChanges() > 0;
+            return await _db.SaveChangesAsync() > 0;
         }
 
-        public bool Update(LeaveRequest entity)
+        public async Task<bool> Update(LeaveRequest entity)
         {
             _db.LeaveRequests.Update(entity);
-            return Save();
+            return await Save();
         }
     }
 }
